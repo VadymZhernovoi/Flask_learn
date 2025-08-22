@@ -27,7 +27,9 @@ class Product(Base):
     name = Column(String(100))
     price = Column(Numeric(10,2))
     in_stock = Column(Boolean, default=False)
+    # Установите связь между таблицами Product и Category с помощью колонки category_id.
     category_id = Column(Integer, ForeignKey('categories.id'))
+    category = relationship('Category', back_populates='products')
 
 """
 Задача 4: Определите связанную модель категории Category со следующими типами колонок:
@@ -42,12 +44,6 @@ class Category(Base):
     name = Column(String(100))
     description = Column(String(255))
     products = relationship('Product', back_populates='category')
-
-"""
-Задача 5: Установите связь между таблицами Product и Category с помощью колонки category_id.
-"""
-
-Product.category = relationship("Category", back_populates="products")
 
 
 # потренироваться
