@@ -31,6 +31,9 @@ class Product(Base):
     category_id = Column(Integer, ForeignKey('categories.id'))
     category = relationship('Category', back_populates='products')
 
+    def __str__(self):
+        return f'{self.id=}, {self.name}, {self.price}, {self.in_stock}, {self.category_id}'
+
 """
 Задача 4: Определите связанную модель категории Category со следующими типами колонок:
     id: числовой идентификатор
@@ -45,10 +48,13 @@ class Category(Base):
     description = Column(String(255))
     products = relationship('Product', back_populates='category')
 
+    def __str__(self):
+        return f'{self.id=}, {self.name}, {self.description}'
 
-# потренироваться
+
 Base.metadata.create_all(engine)
 
+# потренироваться
 with Session() as s:
     pr_1 = Product(name='Product 1', price=24.23, in_stock=True, category_id=2)
     pr_2 = Product(name='Product 2', price=100.01, in_stock=True, category_id=2)
