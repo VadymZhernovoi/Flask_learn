@@ -99,14 +99,12 @@ with Session() as session:
     price_new = 349.99
     product = session.query(Product).filter(Product.name == product_name).first()
     if product:
-        product_id = product.id
-        product = session.query(Product).get(product_id)
         print(f"\nНайден первый товар: {product.name} (цена: {product.price:.2f})")
         price_old = product.price   # для информации
         product.price = price_new   # изменяем цену
         session.commit()            # фиксируем изменение
         # проверяем
-        product = session.query(Product).get(product_id)
+        product = session.query(Product).get(product.id)
         print(f"Цена товара: {product.name} изменена (старая цена: {price_old:.2f}, новая цена: {product.price:.2f})")
     else:
         print(f"\nПродукт: {product_name} не найден")
